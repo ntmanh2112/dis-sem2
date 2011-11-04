@@ -131,6 +131,20 @@ CREATE TABLE [Role] (
 )
 GO
 
+CREATE TABLE [Roles_functions] (
+    [role_id] INTEGER IDENTITY(0,1) NOT NULL,
+    [functions_id] INTEGER,
+    CONSTRAINT [PK_Roles_functions] PRIMARY KEY ([role_id],[functions_id])
+)
+GO
+
+CREATE TABLE [Functions] (
+    [Function_id] INTEGER IDENTITY(0,1) NOT NULL,
+    [functions_Name] VARCHAR(40),
+    CONSTRAINT [PK_Functions] PRIMARY KEY ([Function_id])
+)
+GO
+
 /* ---------------------------------------------------------------------- */
 /* Foreign key constraints                                                */
 /* ---------------------------------------------------------------------- */
@@ -161,4 +175,12 @@ GO
 
 ALTER TABLE [City] ADD CONSTRAINT [Country_City] 
     FOREIGN KEY ([Country_ID]) REFERENCES [Country] ([Country_ID])
+GO
+
+ALTER TABLE [Roles_funtions] ADD CONSTRAINT [Roles_funtions_Role] 
+    FOREIGN KEY ([role_id]) REFERENCES [Role] ([role_id])
+GO
+
+ALTER TABLE [Roles_funtions] ADD CONSTRAINT [Roles_funtions_Functions] 
+    FOREIGN KEY ([functions_id]) REFERENCES [Functions] ([Function_id])
 GO
