@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="account manager" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[select * from SEARCH_ACCOUNTMANAGER]]>
+	</queryString>
+	<field name="ac_ID" class="java.lang.Integer"/>
+	<field name="roles_Name" class="java.lang.String"/>
+	<field name="FullName" class="java.lang.String"/>
+	<field name="ac_UserName" class="java.lang.String"/>
+	<field name="ac_Password" class="java.lang.String"/>
+	<field name="ac_Date" class="java.sql.Timestamp"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="295" y="33" width="507" height="46" forecolor="#FF0000"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Black" size="30" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[BugReporting System]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch">
+			<staticText>
+				<reportElement x="178" y="0" width="488" height="35" forecolor="#996600" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Center">
+					<font size="26" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Account Manager Report]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="20" splitType="Stretch">
+			<rectangle>
+				<reportElement x="1" y="0" width="801" height="20" backcolor="#999999"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="86" y="0" width="277" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Full Name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="363" y="0" width="125" height="20"/>
+				<textElement>
+					<font size="14" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[User Name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="488" y="0" width="100" height="20"/>
+				<textElement>
+					<font size="14" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Password]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="702" y="0" width="100" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Date]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="588" y="0" width="114" height="20"/>
+				<textElement>
+					<font size="14" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Roles]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="4" y="0" width="82" height="20"/>
+				<textElement>
+					<font size="14" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[ID]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="23" splitType="Stretch">
+			<textField>
+				<reportElement x="7" y="0" width="86" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$F{ac_ID}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="175" y="0" width="277" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{FullName}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="363" y="0" width="125" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ac_UserName}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="488" y="0" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ac_Password}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="588" y="0" width="114" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{roles_Name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="702" y="0" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.sql.Timestamp"><![CDATA[$F{ac_Date}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
