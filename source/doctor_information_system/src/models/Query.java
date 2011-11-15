@@ -331,7 +331,7 @@ public class Query{
                 }
                 //else -> check valid on user ID and function name
                 else{
-                    String sqlCheck = String.format("SELECT count(func.*) AS total FROM (((functions AS func INNER JOIN roles_functions AS frole ON func.id = frole.function_id) INNER JOIN roles ON roles.id = frole.role_id) INNER JOIN user_login AS accs ON accs.role_id = roles.role_id) WHERE accs.user_name LIKE '%s' AND func.name LIKE '%s' AND accs.active = %d",userLogged,funcName,1);
+                    String sqlCheck = String.format("SELECT count(func.function_id) AS total FROM (((functions AS func INNER JOIN roles_functions AS frole ON func.function_id = frole.function_id) INNER JOIN roles ON roles.role_id = frole.role_id) INNER JOIN user_login AS accs ON accs.role_id = roles.role_id) WHERE accs.user_name LIKE '%s' AND func.function_name LIKE '%s' AND accs.active = %d",userLogged,funcName,1);
                     ResultSet rsCheck = this.queryData(sqlCheck);
                     while(rsCheck.next()){
                         int total = rsCheck.getInt("total");
