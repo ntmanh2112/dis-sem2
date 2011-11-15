@@ -116,6 +116,12 @@ SELECT N'Associate Professor' UNION ALL
 SELECT N'Dr.' UNION ALL 
 SELECT N'Masters'
 GO
+INSERT INTO [dbo].[qualification]([qualification_name])
+SELECT N'Neurologist' UNION ALL
+SELECT N'Obstetric' UNION ALL
+SELECT N'Internal Medicine' UNION ALL
+SELECT N'External medicine'
+GO
 INSERT INTO [dbo].[country]([country_name]) 
 SELECT N'Vietnam' UNION ALL 
 SELECT N'USA' UNION ALL 
@@ -126,8 +132,19 @@ INSERT INTO [dbo].[city]([city_name],[country_id])
 SELECT N'TP.HCM',1 UNION ALL 
 SELECT N'Ha Noi',1 UNION ALL 
 SELECT N'New York',2 UNION ALL 
-SELECT N'Jakarta',4 UNION ALL 
+SELECT N'Kualar Lumpua',4 UNION ALL
 SELECT N'Phnom Penh',3
+GO
+INSERT INTO [dbo].[doctor]([first_name],[last_name],[add_ress],[email],[phone_number],[sex],[birthday],[experience],[city_id],[qualification_id],[professional_id]) 
+SELECT 'Cong','Nguyen Tan','1438D Pham The Hien F5 Q8','cong.nguyentan@codeandmore.com','01217604545','male','12/27/1983',1,1,3,4 UNION ALL
+SELECT 'Peter','Gravensen','285 Broadway','peter1977@yahoo.com','0425-415-5528','male','10/15/1977',8,3,1,1 UNION ALL
+SELECT 'Mei Mei','Kualar','115 Mataya','meimei@gmail.com','125-445-5142','female','08/07/1980',4,4,4,3
+GO
+INSERT INTO [dbo].[history_doctor]([doctor_id],[from_date],[to_date])
+SELECT 1,'11/15/2011','11/16/2011' UNION ALL
+SELECT 1,'11/20/2011','12/01/2011' UNION ALL
+SELECT 2,'09/05/2011','10/05/2011' UNION ALL
+SELECT 2,'11/11/2011','12/11/2011'
 GO
 ALTER TABLE [user_login] ADD CONSTRAINT [role_user_login]
     FOREIGN KEY ([role_id]) REFERENCES [roles] ([role_id])

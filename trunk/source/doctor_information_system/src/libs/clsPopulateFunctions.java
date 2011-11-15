@@ -15,6 +15,7 @@ import javax.crypto.spec.PBEParameterSpec;
 import javax.swing.JOptionPane;
 import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
+import java.util.Vector;
 
 /**
  *
@@ -93,5 +94,62 @@ public class clsPopulateFunctions {
         else{
             JOptionPane.showMessageDialog(object, (Object) content, "Warning from application", JOptionPane.ERROR_MESSAGE);
         }
+     }
+
+     /*
+      * convert an array String to a String with string delimiter between two element in array
+      *
+      * @param: String[] arrays
+      * @param: String delimiter
+      * @return: String result
+      */
+     public static String joinArray(String[] arrays, String delimiter){
+        String result = "";
+        try{
+            int k=arrays.length;
+            if (k==0){
+                return "";
+            }
+            StringBuilder out=new StringBuilder();
+            out.append(arrays[0]);
+            for (int x=1;x<k;++x){
+                if(!arrays[x].isEmpty()){
+                    out.append(delimiter).append(arrays[x]);
+                }
+            }
+            result = out.toString();
+        } catch (Exception e) {
+            System.out.println("Error is : " + e.getMessage());
+        }
+         return result;
+     }
+	 
+	 /*
+      * convert a Vector to a String with string delimiter between two element in array
+      *
+      * @param: Vector arrays
+      * @param: String delimiter
+      * @return: String result
+      */
+     public static String joinVector(Vector vector, String delimiter){
+        String result = "";
+        try{
+            int k= vector.size();
+            if (k==0){
+                return "";
+            }
+            StringBuilder out=new StringBuilder();
+            out.append(vector.get(0).toString());
+            for (int x=1;x<k;++x){
+                String element = vector.get(x).toString();
+                if(!element.isEmpty()){
+                    out.append(delimiter).append(element);
+                }
+            }
+            result = out.toString();
+        } catch (Exception e) {
+            System.out.println("Error is : " + e.getMessage());
+        }
+         return result;
      }
 }
