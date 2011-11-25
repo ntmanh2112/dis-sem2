@@ -3,22 +3,24 @@
  * and open the template in the editor.
  */
 
-package Model;
+package Models;
 
 import Control.DBHelper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Vector;
+import models.Query;
 
 /**
  *
  * @author De
  */
-public class ProfessionalModel {
+public class ProfessionalModel extends Query {
     private String professional_id;
     private String professional_name;
 
     public ProfessionalModel() {
+        super();
     }
 
     public String getProfessional_id() {
@@ -41,10 +43,10 @@ public class ProfessionalModel {
      *@return Vector
      *@throws java.sql.SQLException
      */
-    public static Vector getAllProfessional() throws SQLException {
+    public Vector getAllProfessional() throws SQLException {
         Vector v = new Vector();
         try {
-            ResultSet rs = DBHelper.executeQuery("spGetAllProfessional");
+            ResultSet rs = this.executeProcedure("spGetAllProfessional");
             while (rs.next()) {
                 ProfessionalModel objProfessional = new ProfessionalModel();
                 objProfessional.setProfessional_id(rs.getString(1));
@@ -114,14 +116,14 @@ public class ProfessionalModel {
      * @return
      * @throws SQLException
      */
-    public static int insertProfessional(ProfessionalModel objProfessional) throws SQLException {
+    public int insertProfessional(ProfessionalModel objProfessional) {
         int i = 0;
         try {
             Vector paramList = new Vector();
            // paramList.add(objProfessional.professional_id);
             paramList.add(objProfessional.professional_name);
-            i = DBHelper.executeUpdate("spInsertProfessional", paramList);
-        } catch (SQLException sql) {
+            i = this.executeProcedureUpdate("spInsertProfessional", paramList);
+        } catch (Exception sql) {
             //System.out.println(sql);
             sql.printStackTrace();
         }
@@ -133,14 +135,14 @@ public class ProfessionalModel {
      * @return
      * @throws SQLException
      */
-    public static int updateProfessional(ProfessionalModel objProfessional) throws SQLException {
+    public int updateProfessional(ProfessionalModel objProfessional) {
         int i = 0;
         try {
             Vector paramList = new Vector();
             paramList.add(objProfessional.professional_id);
             paramList.add(objProfessional.professional_name);
-            i = DBHelper.executeUpdate("spUpdateProfessional", paramList);
-        } catch (SQLException sql) {
+            i = this.executeProcedureUpdate("spUpdateProfessional", paramList);
+        } catch (Exception sql) {
             //System.out.println(sql);
             sql.printStackTrace();
         }
@@ -152,25 +154,16 @@ public class ProfessionalModel {
      * @return
      * @throws SQLException
      */
-    public static int deleteProfessional(String pfsnl) throws SQLException {
+    public int deleteProfessional(String pfsnl) {
         int i = 0;
         try {
             Vector paramList = new Vector();
             paramList.add(pfsnl);
-            i = DBHelper.executeUpdate("spDeleteProfessional", paramList);
-        } catch (SQLException sql) {
+            i = this.executeProcedureUpdate("spDeleteProfessional", paramList);
+        } catch (Exception sql) {
             System.out.println(sql);
             sql.printStackTrace();
         }
         return i;
     }
-    /**
-     * Method main()
-     * @param args
-     */
-    public static void main(String args[]){
-        new ProfessionalModel();
-        System.out.println("go tu Home");
-    }
-
 }

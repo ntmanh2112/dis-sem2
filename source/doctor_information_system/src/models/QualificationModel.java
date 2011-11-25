@@ -25,11 +25,7 @@ public class QualificationModel extends Query {
 
 
     public QualificationModel() {
-      
-         this.setDatabaseName("phuc_pro");
-        this.setUser("sa");
-        this.setPassword("020890");
-     
+        super();
     }
 
     int id ;
@@ -51,7 +47,6 @@ public class QualificationModel extends Query {
     public void setQualification(String qualification) {
         this.qualification = qualification;
     }
-     Query q = new Query();
     public void add(){
        try {
            QualificationView vQua = new QualificationView();
@@ -96,7 +91,7 @@ public class QualificationModel extends Query {
             try {
                 int id = Integer.parseInt(v.tblData.getValueAt(row, 0).toString());
                 String name = v.tblData.getValueAt(row,1).toString();
-                PreparedStatement pre = q.con.prepareStatement("update qualification(qualification_id,qualification_name) set values(?,?) where qualification_id=?");
+                PreparedStatement pre = this.con.prepareStatement("update qualification(qualification_id,qualification_name) set values(?,?) where qualification_id=?");
                 
                 pre.setInt(1, id);
                 pre.setString(2,name);

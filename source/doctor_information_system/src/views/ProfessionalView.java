@@ -9,25 +9,27 @@
  * Created on Nov 22, 2011, 5:24:46 PM
  */
 
-package View;
+package Views;
 
 import Control.DBHelper;
-import Model.ProfessionalModel;
+import Models.ProfessionalModel;
 import java.sql.SQLException;
 import java.util.Vector;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 import Model.Check;
+import javax.xml.ws.Holder;
 
 /**
  *
  * @author De
  */
 public class ProfessionalView extends javax.swing.JFrame {
-
+    ProfessionalModel mPro = new ProfessionalModel();
+    views.HomeView vHome = new views.HomeView();
     /** Creates new form ProfessionalView */
-    DBHelper db = new DBHelper();
+    //DBHelper db = new DBHelper();
     Vector vLoad;
     String nameTable = "";
     public ProfessionalView() {
@@ -38,9 +40,25 @@ public class ProfessionalView extends javax.swing.JFrame {
         }
         initComponents();
           try {
-            vLoad = ProfessionalModel.getAllProfessional();
+            vLoad = mPro.getAllProfessional();
             this.loadTableProfessional(nameTable, vLoad);
 
+        } catch (SQLException ex) {
+            System.out.println(ex);
+            ex.printStackTrace();
+        }
+    }
+
+    public ProfessionalView(views.HomeView vHome) {
+        
+        this.vHome = vHome;
+
+        initComponents();
+          try {
+            vLoad = mPro.getAllProfessional();
+            this.loadTableProfessional(nameTable, vLoad);
+            this.setLocationRelativeTo(null);
+            this.setVisible(true);
         } catch (SQLException ex) {
             System.out.println(ex);
             ex.printStackTrace();
@@ -70,8 +88,12 @@ public class ProfessionalView extends javax.swing.JFrame {
         jButtonDelete = new javax.swing.JButton();
         jButtonUpdate = new javax.swing.JButton();
         jButtonResert = new javax.swing.JButton();
+        cmdClose = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setTitle("Manage Professional");
+        setResizable(false);
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Professional");
@@ -159,6 +181,13 @@ public class ProfessionalView extends javax.swing.JFrame {
             }
         });
 
+        cmdClose.setText("Close");
+        cmdClose.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdCloseActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -172,6 +201,8 @@ public class ProfessionalView extends javax.swing.JFrame {
                 .addComponent(jButtonUpdate)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonResert)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cmdClose)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -180,7 +211,8 @@ public class ProfessionalView extends javax.swing.JFrame {
                 .addComponent(jButtonAdd)
                 .addComponent(jButtonDelete)
                 .addComponent(jButtonUpdate)
-                .addComponent(jButtonResert))
+                .addComponent(jButtonResert)
+                .addComponent(cmdClose))
         );
 
         javax.swing.GroupLayout jPanelProfessionalLayout = new javax.swing.GroupLayout(jPanelProfessional);
@@ -188,19 +220,20 @@ public class ProfessionalView extends javax.swing.JFrame {
         jPanelProfessionalLayout.setHorizontalGroup(
             jPanelProfessionalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelProfessionalLayout.createSequentialGroup()
-                .addGap(79, 79, 79)
+                .addContainerGap()
                 .addGroup(jPanelProfessionalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 437, Short.MAX_VALUE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 392, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(39, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelProfessionalLayout.createSequentialGroup()
-                .addContainerGap(93, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(61, 61, 61))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelProfessionalLayout.createSequentialGroup()
-                .addContainerGap(156, Short.MAX_VALUE)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(127, 127, 127))
+                    .addGroup(jPanelProfessionalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanelProfessionalLayout.createSequentialGroup()
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 392, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addContainerGap())
+                        .addGroup(jPanelProfessionalLayout.createSequentialGroup()
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 463, Short.MAX_VALUE)
+                            .addGap(122, 122, 122)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelProfessionalLayout.createSequentialGroup()
+                        .addGroup(jPanelProfessionalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(166, 166, 166))))
         );
         jPanelProfessionalLayout.setVerticalGroup(
             jPanelProfessionalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -213,22 +246,28 @@ public class ProfessionalView extends javax.swing.JFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(62, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/img/top-banner-professional.png"))); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanelProfessional, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel4)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addComponent(jPanelProfessional, javax.swing.GroupLayout.PREFERRED_SIZE, 565, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanelProfessional, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
@@ -251,10 +290,10 @@ public class ProfessionalView extends javax.swing.JFrame {
         //} else
          //   objUser.setRole(0);
         try {
-            test=ProfessionalModel.insertProfessional(objProfessional);
+            test=mPro.insertProfessional(objProfessional);
             if(test==1) {
                 JOptionPane.showMessageDialog(this,"Add sucsessful !","Inform",JOptionPane.INFORMATION_MESSAGE);
-                vLoad=ProfessionalModel.getAllProfessional();
+                vLoad=mPro.getAllProfessional();
                 this.loadTableProfessional(nameTable,vLoad);
             } else {
                 JOptionPane.showMessageDialog(this,"Error!","Inform",JOptionPane.ERROR_MESSAGE);
@@ -274,13 +313,13 @@ public class ProfessionalView extends javax.swing.JFrame {
             int [] rArr=jTableProfessional.getSelectedRows();
             try {
                 for(int i=0;i<rArr.length;i++) {
-                    test=ProfessionalModel.deleteProfessional(jTableProfessional.getValueAt(rArr[i],0).toString());
+                    test=mPro.deleteProfessional(jTableProfessional.getValueAt(rArr[i],0).toString());
                     if(test==1)
                         count++;
                 }
                 if(count>0) {
                     JOptionPane.showMessageDialog(this,"Deleted "+count+" record ","successful.",JOptionPane.INFORMATION_MESSAGE);
-                    vLoad=ProfessionalModel.getAllProfessional();
+                    vLoad=mPro.getAllProfessional();
                     this.loadTableProfessional(nameTable,vLoad);
                 } else {
                     JOptionPane.showMessageDialog(this,"Error","Inform",JOptionPane.ERROR_MESSAGE);
@@ -301,10 +340,10 @@ public class ProfessionalView extends javax.swing.JFrame {
         objProfessional.setProfessional_name(jTextFieldProfessionalName.getText());
 
        try {
-            test=ProfessionalModel.updateProfessional(objProfessional);
+            test=mPro.updateProfessional(objProfessional);
             if(test==1) {
                 JOptionPane.showMessageDialog(this,"Update sucsessful !","Inform",JOptionPane.INFORMATION_MESSAGE);
-                vLoad=ProfessionalModel.getAllProfessional();
+                vLoad=mPro.getAllProfessional();
                 this.loadTableProfessional(nameTable,vLoad);
             } else {
                 JOptionPane.showMessageDialog(this,"Error this is !","Inform",JOptionPane.ERROR_MESSAGE);
@@ -330,6 +369,11 @@ public class ProfessionalView extends javax.swing.JFrame {
         jTextFieldProfessionalID.setText("" + jTableProfessional.getValueAt(r, 0).toString().trim());
         jTextFieldProfessionalName.setText("" + jTableProfessional.getValueAt(r, 1));
     }//GEN-LAST:event_jTableProfessionalMouseClicked
+
+    private void cmdCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdCloseActionPerformed
+        this.vHome.setEnabled(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_cmdCloseActionPerformed
     /**
      * Method loadTableProfessional()
      * @param nameTable
@@ -386,6 +430,7 @@ public class ProfessionalView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton cmdClose;
     private javax.swing.JButton jButtonAdd;
     private javax.swing.JButton jButtonDelete;
     private javax.swing.JButton jButtonResert;
@@ -393,6 +438,7 @@ public class ProfessionalView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanelProfessional;

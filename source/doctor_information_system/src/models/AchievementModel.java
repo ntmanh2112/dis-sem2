@@ -3,23 +3,25 @@
  * and open the template in the editor.
  */
 
-package Model;
+package Models;
 
 import Control.DBHelper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Vector;
+import models.Query;
 
 /**
  *
  * @author De
  */
-public class AchievementModel {
+public class AchievementModel extends Query {
     private String achievement_id;
     private String desciption;
     private String doctor_id;
 
     public AchievementModel() {
+        super();
     }
 
     public String getAchievement_id() {
@@ -50,10 +52,10 @@ public class AchievementModel {
      * @return
      * @throws SQLException
      */
-    public static Vector getAllAchievement() throws SQLException {
+    public Vector getAllAchievement() {
         Vector v = new Vector();
         try {
-            ResultSet rs = DBHelper.executeQuery("spAllAchievement");
+            ResultSet rs = this.executeProcedure("spAllAchievement");
             while (rs.next()) {
                 AchievementModel objAchievement = new AchievementModel();
                 objAchievement.setAchievement_id(rs.getString(1));
@@ -73,13 +75,13 @@ public class AchievementModel {
      * @return
      * @throws SQLException
      */
-    public static int deleteAchievement(String achievement_id) throws SQLException {
+    public int deleteAchievement(String achievement_id) {
         int i = 0;
         try {
             Vector paramList = new Vector();
             paramList.add(achievement_id);
-            i = DBHelper.executeUpdate("spDeleteAchievement", paramList);
-        } catch (SQLException ex) {
+            i = this.executeProcedureUpdate("spDeleteAchievement", paramList);
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
         return i;
@@ -90,15 +92,15 @@ public class AchievementModel {
      * @return
      * @throws SQLException
      */
-    public static int updateAchievement(AchievementModel objAchivement) throws SQLException {
+    public int updateAchievement(AchievementModel objAchivement) {
         int i = 0;
         try {
             Vector paramList = new Vector();
             paramList.add(objAchivement.achievement_id);
             paramList.add(objAchivement.desciption);
             paramList.add(objAchivement.doctor_id);
-            i = DBHelper.executeUpdate("spUpdateAchievement", paramList);
-        } catch (SQLException ex) {
+            i = this.executeProcedureUpdate("spUpdateAchievement", paramList);
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
         return i;
@@ -109,15 +111,15 @@ public class AchievementModel {
      * @return
      * @throws SQLException
      */
-    public static int insertAchievement(AchievementModel objAchivement) throws SQLException {
+    public int insertAchievement(AchievementModel objAchivement) throws SQLException {
         int i = 0;
         try {
             Vector paramList = new Vector();
            // paramList.add(objAchivement.achievement_id);
             paramList.add(objAchivement.desciption);
             paramList.add(objAchivement.doctor_id);
-            i = DBHelper.executeUpdate("spInsertAchievement", paramList);
-        } catch (SQLException ex) {
+            i = this.executeProcedureUpdate("spInsertAchievement", paramList);
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
         return i;

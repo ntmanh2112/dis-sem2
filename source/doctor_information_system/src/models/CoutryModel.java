@@ -19,10 +19,7 @@ import views.CoutryView;
 public class CoutryModel extends Query{
 
     public CoutryModel() {
-        
-         this.setDatabaseName("phuc_pro");
-        this.setUser("sa");
-        this.setPassword("020890");
+        super();
     }
     int id;
     String coutry;
@@ -42,7 +39,7 @@ public class CoutryModel extends Query{
     public void setId(int id) {
         this.id = id;
     }
- Query q = new Query();
+
     public void add(){
        try {
            CoutryView vQua = new CoutryView();
