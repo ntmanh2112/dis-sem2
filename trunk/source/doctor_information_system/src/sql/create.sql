@@ -173,3 +173,94 @@ GO
 ALTER TABLE [history_doctor] ADD CONSTRAINT [doctor_history_doctor]
     FOREIGN KEY ([doctor_id]) REFERENCES [doctor] ([doctor_id])
 GO
+IF EXISTS (SELECT * FROM SYSOBJECTS WHERE NAME='spGetAllProfessional' AND TYPE ='P')
+DROP PROC spGetAllProfessional
+GO
+create proc spGetAllProfessional
+as
+begin
+select * from professional
+end
+GO
+IF EXISTS (SELECT * FROM SYSOBJECTS WHERE NAME = 'spInsertProfessional' AND TYPE = 'P')
+DROP PROC spInsertProfessional
+GO
+create proc spInsertProfessional
+@professional_name nvarchar(255)
+as
+begin
+insert into professional
+values (@professional_name)
+end
+GO
+------------------------------------------
+--create proc spUpdateProfessional--
+IF EXISTS (SELECT * FROM SYSOBJECTS WHERE NAME = 'spUpdateProfessional' AND TYPE ='P')
+DROP PROC spUpdateProfessional
+GO
+create proc spUpdateProfessional
+@professional_id integer,
+@professional_name nvarchar(255)
+as
+begin
+update professional
+set professional_name = @professional_name
+where professional_id = @professional_id
+end
+GO
+----------------------------------------
+--create proc spDeleteProfessional
+IF EXISTS (SELECT * FROM SYSOBJECTS WHERE NAME='spDeleteProfessional' AND TYPE='P')
+DROP PROC spDeleteProfessional
+GO
+create proc spDeleteProfessional
+@professional_id integer
+as
+begin
+delete from professional
+where professional_id = @professional_id
+end
+GO
+-----------------proc-----------------------------------
+create proc spAllAchievement
+as
+begin
+select * from achievement
+end
+GO
+--------------------------------
+------------
+create proc spInsertAchievement
+@desciption nvarchar(225),
+@doctor_id integer
+as
+begin
+insert into achievement
+values(@desciption,@doctor_id)
+end
+GO
+------------------------------------
+CREATE PROC spUpdateAchievement
+@achie_id integer ,
+@desciption nvarchar(225),
+@doctor_id integer
+AS
+UPDATE achievement
+SET desciption=@desciption,doctor_id=@doctor_id
+WHERE achievement_id = @achie_id
+GO
+----------------
+create proc spDeleteAchievement
+@achievement_id integer
+as
+begin
+delete from achievement
+where achievement_id = @achievement_id
+end
+GO
+-------------------------------------
+CREATE PROC spGetAllDoctor
+AS
+SELECT * FROM doctor
+GO
+---------------------------------------

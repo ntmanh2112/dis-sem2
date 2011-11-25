@@ -6,6 +6,8 @@
 package controllers;
 
 //import model
+import Views.AchivementView;
+import Views.ProfessionalView;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -17,8 +19,7 @@ import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
 import models.HomeModel;
 //import view
-import views.HomeView;
-import views.LoginView;
+import views.*;
 
 /**
  *
@@ -265,6 +266,8 @@ public class HomeController extends ParentController {
 
         public void actionPerformed(ActionEvent e) {
             //do action here
+            vHome.setEnabled(false);
+            AchivementView vQualification = new AchivementView(vHome);
         }
 
     }
@@ -281,6 +284,8 @@ public class HomeController extends ParentController {
 
         public void actionPerformed(ActionEvent e) {
             //do action here
+            vHome.setEnabled(false);
+            CoutryView vCountry = new CoutryView(vHome);
         }
 
     }
@@ -289,6 +294,8 @@ public class HomeController extends ParentController {
 
         public void actionPerformed(ActionEvent e) {
             //do action here
+            vHome.setEnabled(false);
+            QualificationView vQualification = new QualificationView(vHome);
         }
 
     }
@@ -297,6 +304,8 @@ public class HomeController extends ParentController {
 
         public void actionPerformed(ActionEvent e) {
             //do action here
+            vHome.setEnabled(false);
+            ProfessionalView vCountry = new ProfessionalView(vHome);
         }
 
     }

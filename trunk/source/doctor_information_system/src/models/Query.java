@@ -2,6 +2,7 @@ package models;
 
 
 import java.sql.*;
+import java.util.Vector;
 import libs.*;
 
 /*
@@ -104,6 +105,134 @@ public class Query{
          }
          return false;
      }
+
+     /**
+     * Method executes a non-parameter selecting querry
+     * @return ResultSet cs.executeQuery()
+     * @param spName
+     * @throws java.sql.SQLException
+     */
+    public ResultSet executeProcedure(String spName)
+    {
+        try{
+             //open connection
+             this._openConnection();
+
+             CallableStatement cs = this.con.prepareCall("{call " + spName + "}");
+             ResultSet result = cs.executeQuery();
+
+            //this._closeConnection();
+
+            return result;
+
+         } catch (Exception ex) {
+            System.out.println(ex);
+            System.out.println(ex.getStackTrace());
+         }
+         return null;
+    }
+
+    /**
+     * Method executes multi-parameter selecting querry
+     * @return ResultSet cst.executeQuery()
+     * @param spName
+     * @param paramList
+     * @throws java.sql.SQLException
+     */
+   public ResultSet executeProcedure(String spName, Vector paramList)
+    {
+       try{
+             //open connection
+             this._openConnection();
+
+             String strQ = "{call " + spName + "(";
+            int t =0;
+            for(Object obj : paramList)
+            {
+                if(t != 0)
+                    strQ += ",";
+                if(obj instanceof Integer)
+                {
+                    Integer i = (Integer)obj;
+                    strQ += i.toString();
+                }else if(obj instanceof String)
+                {
+                    String s = (String)obj;
+                    strQ += "'" + s + "'";
+                }
+                t++;
+            }
+            strQ += ")}";
+
+            CallableStatement cst = this.con.prepareCall(strQ);
+
+            ResultSet result = cst.executeQuery();
+
+            //this._closeConnection();
+
+            return result;
+
+         } catch (Exception ex) {
+            System.out.println(ex);
+            System.out.println(ex.getStackTrace());
+         }
+         return null;
+    }
+
+   /**
+     * Method to update and delete one record in table
+     * @return int cst.executeUpdate()
+     * @param spName
+     * @param paramList
+     * @throws java.sql.SQLException
+     */
+    public int executeProcedureUpdate(String spName, Vector paramList)
+    {
+        try{
+             //open connection
+             this._openConnection();
+
+             String strQ = "{call " + spName + "(";
+
+            int t = 0;
+            for(Object obj : paramList)
+            {
+                if(t != 0)
+                    strQ += ",";
+                if(obj instanceof Integer)
+                {
+                    Integer i = (Integer)obj;
+                    strQ += i.toString();
+                }
+                else if(obj instanceof Float)
+                {
+                    Float f = (Float)obj;
+                    strQ += f.toString();
+                }
+                else if(obj instanceof String)
+                {
+                    String s = (String)obj;
+                    strQ += "'" + s + "'";
+                }
+                t++;
+            }
+            
+            strQ += ")}";
+
+            CallableStatement cst = this.con.prepareCall(strQ);
+
+            int result = cst.executeUpdate();
+
+            //this._closeConnection();
+
+            return result;
+
+         } catch (Exception ex) {
+            System.out.println(ex);
+            System.out.println(ex.getStackTrace());
+         }
+        return -1;
+    }
 
      /*
       * function init database
