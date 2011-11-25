@@ -68,7 +68,7 @@ public class DoctorController extends ParentController {
         this._doctorModel.setPassword("dinhtoiyeuem");*/
         //end
         //check access valid
-        if(this._doctorModel.checkAccessValid(this.userLogged, "Manage Doctor")){
+        if(this._doctorModel.checkAccessValid(this.userLogged, "Manage Doctor") | this._doctorModel.checkAccessValid(this.userLogged, "Search")){
             //load data on view
             this._loadDataOnView();
             //load action on view
@@ -97,15 +97,9 @@ public class DoctorController extends ParentController {
         this._doctors = this._doctorModel.getListDoctorsRenderTable(null);
         //set datas on table
         this._doctorView.setDataTableListDoctor(this._doctors);
-        this._doctorView.setSpecializationSearch(this._qualification);
         this._doctorView.setSpecializationEdit(this._qualification);
         this._doctorView.setProfessionalEdit(this._professional);
-        this._doctorView.setCountrySearch(this._countries);
         this._doctorView.setCountryEdit(this._countries);
-        this._doctorView.setCitySearch(this._citiesSearch);
-        this._doctorView.setOperationExpSearch();
-        this._doctorView.setValueSearch("");
-        this._doctorView.setExpValueSearch("");
         //reset data on form edit and form search
         this._resetDataFormEdit();
         this._resetDataFormSearch();
@@ -221,7 +215,17 @@ public class DoctorController extends ParentController {
     }
 
     private void _resetDataFormSearch(){
+        //reset data
+        this._doctorView.setValueSearch("");
+        this._doctorView.setExpValueSearch("");
+        this._doctorView.setCountrySearch(this._countries);
+        this._doctorView.setCitySearch(new Vector());
+        this._doctorView.setOperationExpSearch();
+        this._doctorView.setSpecializationSearch(this._qualification);
 
+        //reset status button
+        this._doctorView.setStatusSearchButton(true);
+        this._doctorView.setStatusShowAllButton(true);
     }
     
     private int _getCountryIdFromName(String countryName){
@@ -759,7 +763,16 @@ public class DoctorController extends ParentController {
                         _doctorView.setDataTableListDoctor(_doctors);
                         _doctorView.setDataTableHistoryVisiting(null);
 
+                        _idDoctorView = "";
+                        _idHistoryView = "";
+                        _doctorView.setStatusEditDoctorButton(false);
+                        _doctorView.setStatusDeleteDoctorButton(false);
+                        _doctorView.setStatusViewArchivementButton(false);
+                        _doctorView.setStatusAddScheduleButton(false);
+                        _doctorView.setStatusDeleteScheduleButton(false);
+
                         _resetDataFormEdit();
+                        _resetDataFormAddSchedule();
                     }
                 }
                 else{
@@ -901,6 +914,8 @@ public class DoctorController extends ParentController {
                     _doctorView.setStatusDeleteScheduleButton(false);
                     _doctorView.setStatusDeleteDoctorButton(false);
                     _doctorView.setStatusViewArchivementButton(false);
+                    _doctorView.setStatusSearchButton(false);
+                    _doctorView.setStatusShowAllButton(false);
                     //disable table list doctor and history visiting
                     _doctorView.setStatusTableListDoctor(false);
                     _doctorView.setStatusTableHistoryVisiting(false);
@@ -991,6 +1006,8 @@ public class DoctorController extends ParentController {
                     _doctorView.setStatusEditDoctorButton(false);
                     _doctorView.setStatusDeleteDoctorButton(false);
                     _doctorView.setStatusViewArchivementButton(false);
+                    _doctorView.setStatusSearchButton(false);
+                    _doctorView.setStatusShowAllButton(false);
                     //disable table list doctor and history visiting
                     _doctorView.setStatusTableHistoryVisiting(false);
                     _doctorView.setStatusTableListDoctor(false);
@@ -1046,7 +1063,7 @@ public class DoctorController extends ParentController {
     class ActionOnButtonClose implements ActionListener{
 
         public void actionPerformed(ActionEvent e) {
-            if(_checkPermission("Manage Doctor")){
+            if(_checkPermission("Manage Doctor") | _checkPermission("Search")){
                 _showHome();
                 _doctorView.setVisible(false);
             }
