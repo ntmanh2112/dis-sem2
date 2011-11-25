@@ -720,6 +720,10 @@ public class Doctor extends javax.swing.JFrame {
         return this.cboOperation.getSelectedItem().toString();
     }
 
+    public void resetOperationExpSearch(){
+        this.cboOperation.setSelectedItem("--Operation--");
+    }
+
     public void setCountrySearch(Vector countries){
         this.cboCountry.removeAllItems();
         this.cboCountry.addItem("--Select Country--");
@@ -803,6 +807,14 @@ public class Doctor extends javax.swing.JFrame {
     }
 
     public void setStatusViewArchivementButton(boolean status){
+        this.cmdViewArchivement.setEnabled(status);
+    }
+
+    public void setStatusSearchButton(boolean status){
+        this.cmdDeleteSchedule.setEnabled(status);
+    }
+
+    public void setStatusShowAllButton(boolean status){
         this.cmdViewArchivement.setEnabled(status);
     }
 
