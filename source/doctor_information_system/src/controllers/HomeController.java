@@ -26,7 +26,6 @@ import views.LoginView;
  */
 public class HomeController extends ParentController {
     HomeModel mHome;
-    HomeView vHome;
 
     JMenuBar topMenu;
     JMenu[] menu;
@@ -306,6 +305,10 @@ public class HomeController extends ParentController {
 
         public void actionPerformed(ActionEvent e) {
             //do action here
+            //hide view home
+            vHome.setEnabled(false);
+            //show view login
+            DoctorController docController = new DoctorController();
         }
 
     }
