@@ -136,9 +136,9 @@ SELECT N'Kualar Lumpua',4 UNION ALL
 SELECT N'Phnom Penh',3
 GO
 INSERT INTO [dbo].[doctor]([first_name],[last_name],[add_ress],[email],[phone_number],[sex],[birthday],[experience],[city_id],[qualification_id],[professional_id]) 
-SELECT 'Cong','Nguyen Tan','1438D Pham The Hien F5 Q8','cong.nguyentan@codeandmore.com','01217604545','male','12/27/1983',1,1,3,4 UNION ALL
-SELECT 'Peter','Gravensen','285 Broadway','peter1977@yahoo.com','0425-415-5528','male','10/15/1977',8,3,1,1 UNION ALL
-SELECT 'Mei Mei','Kualar','115 Mataya','meimei@gmail.com','125-445-5142','female','08/07/1980',4,4,4,3
+SELECT 'Cong','Nguyen Tan','1438D Pham The Hien F5 Q8','cong.nguyentan@codeandmore.com','01217604545','Male','12/27/1983',1,1,3,4 UNION ALL
+SELECT 'Peter','Gravensen','285 Broadway','peter1977@yahoo.com','0425-415-5528','Male','10/15/1977',8,3,1,1 UNION ALL
+SELECT 'Mei Mei','Kualar','115 Mataya','meimei@gmail.com','125-445-5142','Female','08/07/1980',4,4,4,3
 GO
 INSERT INTO [dbo].[history_doctor]([doctor_id],[from_date],[to_date])
 SELECT 1,'11/15/2011','11/16/2011' UNION ALL

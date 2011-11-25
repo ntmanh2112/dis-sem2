@@ -45,6 +45,7 @@ public class viewConfig extends javax.swing.JFrame {
         cmdCancel = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setTitle("Form Config Database");
 
         lblDatabase.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblDatabase.setText("Database Name:");

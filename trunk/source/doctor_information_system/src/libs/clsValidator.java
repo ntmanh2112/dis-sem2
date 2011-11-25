@@ -19,7 +19,7 @@ public class clsValidator {
                 boolean requireCheck = listRequired[i];
                 String regex = listRegex[i];
                 String alert = alerts[i];
-
+                
                 //require check
                 if(requireCheck){
                     if(dataCheck.trim().isEmpty()){
